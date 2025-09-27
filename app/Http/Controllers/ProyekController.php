@@ -15,7 +15,7 @@ class ProyekController extends Controller
         $proyek = [
             ['nama' => 'Pembangunan Jalan Desa', 'status' => 'Proses'],
             ['nama' => 'Renovasi Sekolah Dasar', 'status' => 'Selesai'],
-            ['nama' => 'Pembangunan Posyandu', 'status' => 'Perencanaan'],
+            ['nama' => 'Pembangunan Rumah Sakit', 'status' => 'Perencanaan'],
         ];
 
         return view('proyek', compact('proyek'));

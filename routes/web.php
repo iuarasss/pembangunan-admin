@@ -11,3 +11,7 @@ Route::get('/', function () {
 Route::get('/proyek', [ProyekController::class, 'index']);
 
 Route::get('/tahapan', [TahapanController::class, 'index']);
+
+Route::get('/finish', function () {
+    return "kamsahamnidaaaa<33";
+});

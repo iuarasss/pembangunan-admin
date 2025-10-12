@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProyekController;
 use App\Http\Controllers\TahapanController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,3 +21,4 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -52,8 +52,8 @@
                 <!-- Profil Admin -->
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle object-fit-cover"  src="{{ asset('assets-admin/img/ayes.jpg') }}" alt="Ayu Sara"
-                            style="width: 60px; height: 60px;object-fit: cover; border: 2px solid #fff;">
+                        <img class="rounded-circle object-fit-cover" src="{{ asset('assets-admin/img/ayes.jpg') }}"
+                            alt="Ayu Sara" style="width: 60px; height: 60px;object-fit: cover; border: 2px solid #fff;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
@@ -70,7 +70,8 @@
                         <i class="fa fa-tachometer-alt me-2"></i>Dashboard
                     </a>
 
-                    <a href="{{ url('proyek') }}" class="nav-item nav-link">
+                    <!-- Menu Proyek -->
+                    <a href="{{ route('proyek.index') }}" class="nav-item nav-link">
                         <i class="fa fa-building me-2"></i>Proyek
                     </a>
 

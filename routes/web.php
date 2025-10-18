@@ -22,3 +22,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::resource('proyek', ProyekController::class);
+Route::resource('proyek.edit', ProyekController::class);

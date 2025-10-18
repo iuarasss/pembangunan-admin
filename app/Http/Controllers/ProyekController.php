@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Models\Proyek;
 use Illuminate\Http\Request;
 
 class ProyekController extends Controller
@@ -11,15 +11,10 @@ class ProyekController extends Controller
      */
     public function index()
     {
-    {
-        $proyek = [
-            ['nama' => 'Pembangunan Jalan Desa', 'status' => 'Proses'],
-            ['nama' => 'Renovasi Sekolah Dasar', 'status' => 'Selesai'],
-            ['nama' => 'Pembangunan Rumah Sakit', 'status' => 'Perencanaan'],
-        ];
 
-        return view('proyek', compact('proyek'));
-    }
+        $proyek = Proyek::all();                         // Ambil semua data proyek
+        return view('proyek.create', compact('proyek')); // Kirim ke view
+
     }
 
     /**
@@ -27,7 +22,8 @@ class ProyekController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('proyek.create');
     }
 
     /**
@@ -35,36 +31,48 @@ class ProyekController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'kode_proyek' => 'required|unique:proyek',
+            'nama_proyek' => 'required',
+            'tahun'       => 'required|numeric',
+            'lokasi'      => 'required',
+            'anggaran'    => 'required|numeric',
+            'sumber_dana' => 'required',
+            'deskripsi'   => 'required',
+            'progress'    => 'nullable|numeric|min:0|max:100',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
+        Proyek::create($request->all());
+
+        return redirect()->route('proyek.index')->with('success', 'Data proyek berhasil ditambahkan!');
+    }
+/**
+ * Display the specified resource.
+ */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+/**
+ * Show the form for editing the specified resource.
+ */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+/**
+ * Update the specified resource in storage.
+ */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+/**
+ * Remove the specified resource from storage.
+ */
     public function destroy(string $id)
     {
         //

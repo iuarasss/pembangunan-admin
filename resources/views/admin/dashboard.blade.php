@@ -52,7 +52,7 @@
                 <!-- Profil Admin -->
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle object-fit-cover" src="{{ asset('assets-admin/img/ayes.jpg') }}"
+                        <img class="rounded-circle object-fit-cover" src="{{ asset('assets-admin/img/user.jpg') }}"
                             alt="Ayu Sara" style="width: 60px; height: 60px;object-fit: cover; border: 2px solid #fff;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">

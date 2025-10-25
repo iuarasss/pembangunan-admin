@@ -26,13 +26,13 @@
 
             <h2>Login</h2>
 
-            <!-- Username -->
+            <!-- Email -->
             <div class="input-box">
                 <span class="icon">
                     <ion-icon name="person"></ion-icon>
                 </span>
                 <input type="text" name="username" required />
-                <label>Username</label>
+                <label>Email</label>
                 <div class="input-line"></div>
             </div>
 

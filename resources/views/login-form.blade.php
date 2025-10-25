@@ -5,18 +5,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Form Animation CSS</title>
+    <title>Login - E-Proyek</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
 <body>
     <div class="glowing-light"></div>
     <div class="login-box">
-        <!-- Form diarahkan ke route /auth/login -->
+
         <form action="{{ url('/auth/login') }}" method="POST">
             @csrf
 
-            <!-- Toggle -->
+            <!-- Toggle light -->
             <input type="checkbox" class="input-check" id="input-check" />
             <label for="input-check" class="toggle">
                 <span class="text off">off</span>
@@ -29,9 +29,9 @@
             <!-- Email -->
             <div class="input-box">
                 <span class="icon">
-                    <ion-icon name="person"></ion-icon>
+                    <ion-icon name="mail"></ion-icon>
                 </span>
-                <input type="text" name="username" required />
+                <input type="email" name="email" value="{{ old('email') }}" required />
                 <label>Email</label>
                 <div class="input-line"></div>
             </div>
@@ -48,13 +48,13 @@
 
             <!-- Remember & forgot -->
             <div class="remember-forgot">
-                <label><input type="checkbox" /> Remember me</label>
+                <label><input type="checkbox" name="remember" /> Remember me</label>
                 <a href="#">Forgot Password?</a>
             </div>
 
             <button type="submit">Login</button>
 
-            <!-- Pesan error atau success -->
+            <!-- Error / Success Message -->
             @if (session('error'))
                 <p style="color:red; margin-top:10px;">{{ session('error') }}</p>
             @endif
@@ -62,19 +62,23 @@
                 <p style="color:green; margin-top:10px;">{{ session('success') }}</p>
             @endif
 
+            @error('email')
+                <p style="color:red; margin-top:10px;">{{ $message }}</p>
+            @enderror
+            @error('password')
+                <p style="color:red; margin-top:10px;">{{ $message }}</p>
+            @enderror
+
             <div class="register-link">
                 <p>Don't have an account? <a href="#">Register</a></p>
             </div>
         </form>
     </div>
 
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Icon Script -->
+    <script type="module"
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
-
-
-
-
-
-

@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WargaController;
 use App\Http\Controllers\ProyekController;
 use App\Http\Controllers\TahapanController;
-use App\Http\Controllers\WargaController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,3 +28,9 @@ Route::get('/dashboard', function () {
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::resource('proyek', ProyekController::class);
+
+Route::resource('user', UserController::class);
+
+Route::get('/auth/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/auth/login', [AuthController::class, 'login'])->name('login.process');
+Route::get('/auth/logout', [AuthController::class, 'logout'])->name('logout');

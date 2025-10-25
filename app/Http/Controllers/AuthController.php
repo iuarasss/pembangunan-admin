@@ -1,89 +1,52 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        return view ('login-form');
+        if (session()->has('user_id')) {
+            return redirect()->route('login');
+        }
+        return $this->showLoginForm();
+    }
+
+    public function showLoginForm()
+    {
+        return view('login-form');
     }
 
     public function login(Request $request)
     {
+        $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required',
+        ]);
 
-        $username = $request->input('username');
-        $password = $request->input('password');
+        $user = \App\Models\User::where('email', $request->email)->first();
 
-        if (empty($username) || empty($password)) {
-            return redirect('/auth')->with('error', 'Username dan Password wajib diisi!');
+        // Cek apakah user ditemukan
+        if ($user && \Illuminate\Support\Facades\Hash::check($request->password, $user->password)) {
+            // Simpan session user
+            session([
+                'user_id'    => $user->id,
+                'user_name'  => $user->name,
+                'user_email' => $user->email,
+            ]);
+
+            // Redirect ke dashboard dengan pesan sukses
+            return redirect()->route('dashboard')->with('success', 'Login berhasil! Selamat datang, ' . $user->name);
         }
 
-        if (strlen($password) < 3) {
-            return redirect('/auth')->with('error', 'Password minimal 3 karakter!');
-        }
-
-        if (! preg_match('/[A-Z]/', $password)) {
-            return redirect('/auth')->with('error', 'Password harus mengandung huruf kapital!');
-        }
-
-        if ($username === "admin" && $password === "Admin123") {
-            return redirect('/dashboard')->with('success', 'Login berhasil! Selamat datang, ' . $username);
-        } else {
-            return redirect('/auth')->with('error', 'Username atau password salah!');
-        }
+        // Jika gagal login
+        return back()->withInput($request->only('email'))->with('error', 'Email atau password salah!');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function logout()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        session()->flush();
+        return redirect()->route('login')->with('success', 'Berhasil logout.');
     }
 }

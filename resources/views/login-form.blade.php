@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - E-Proyek</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css?v=2') }}">
 </head>
 
 <body>
@@ -24,7 +24,7 @@
             </label>
             <div class="light"></div>
 
-            <h2>Login</h2>
+            <h2>Login Ke E-Proyek</h2>
 
             <!-- Email -->
             <div class="input-box">

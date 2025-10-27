@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('layouts.admin.app')
+
+@section('content')
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -157,7 +158,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($wargas as $w)
+                @forelse($warga as $w)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $w->nama }}</td>
@@ -185,4 +186,4 @@
     </div>
 
 </body>
-</html>
+@endsection

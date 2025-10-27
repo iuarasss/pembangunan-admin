@@ -9,8 +9,8 @@ class WargaController extends Controller
 {
     public function index()
     {
-        $wargas = Warga::all();
-        return view('warga.index', compact('wargas'));
+        $warga = Warga::all();
+        return view('warga.index', compact('warga'));
     }
 
     public function create()
@@ -22,7 +22,7 @@ class WargaController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'nik' => 'required|unique:wargas',
+            'nik' => 'required|unique:warga',
             'alamat' => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',

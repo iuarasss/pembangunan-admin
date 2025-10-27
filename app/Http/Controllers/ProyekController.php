@@ -13,7 +13,7 @@ class ProyekController extends Controller
     public function index()
     {
         $proyek = Proyek::all();
-        return view('proyek.index', compact('proyek'));
+        return view('pages.proyek.index', compact('proyek'));
     }
 
     /**
@@ -21,7 +21,7 @@ class ProyekController extends Controller
      */
     public function create()
     {
-        return view('proyek.create');
+        return view('pages.proyek.create');
     }
 
     /**
@@ -48,8 +48,7 @@ class ProyekController extends Controller
      */
     public function edit(Proyek $proyek)
     {
-
-        return view('proyek.edit', compact('proyek'));
+        return view('pages.proyek.edit', compact('proyek'));
     }
 
     /**
@@ -81,25 +80,27 @@ class ProyekController extends Controller
         return redirect()->route('proyek.index')->with('success', 'Data proyek berhasil dihapus!');
     }
 
+    /**
+     * Dashboard admin
+     */
     public function dashboard()
-{
-    // Ambil data proyek dari database
-    $totalProyek = Proyek::count();
-    $totalTahapan = Proyek::count(); // kalau kamu punya tabel tahapan terpisah, ubah ini nanti
-    $rataProgress = Proyek::avg('progress');
-    $kontraktorAktif = Proyek::distinct('kontraktor')->count('kontraktor');
+    {
+        // Ambil data proyek dari database
+        $totalProyek = Proyek::count();
+        $totalTahapan = Proyek::count(); // ubah ini nanti jika tabel tahapan sudah ada
+        $rataProgress = Proyek::avg('progress');
+        $kontraktorAktif = Proyek::distinct('kontraktor')->count('kontraktor');
 
-    // Ambil proyek terbaru
-    $proyekTerbaru = Proyek::orderBy('created_at', 'desc')->take(5)->get();
+        // Ambil proyek terbaru
+        $proyekTerbaru = Proyek::orderBy('created_at', 'desc')->take(5)->get();
 
-    // Kirim ke view
-    return view('dashboard', compact(
-        'totalProyek',
-        'totalTahapan',
-        'rataProgress',
-        'kontraktorAktif',
-        'proyekTerbaru'
-    ));
-}
-
+        // Kirim ke view
+        return view('pages.admin.dashboard', compact(
+            'totalProyek',
+            'totalTahapan',
+            'rataProgress',
+            'kontraktorAktif',
+            'proyekTerbaru'
+        ));
+    }
 }

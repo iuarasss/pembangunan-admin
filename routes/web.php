@@ -22,9 +22,6 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::resource('warga', WargaController::class);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::resource('proyek', ProyekController::class);

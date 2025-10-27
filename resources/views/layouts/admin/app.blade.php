@@ -32,6 +32,8 @@
     <!--Start js-->
     @include('layouts.admin.js')
     <!--End js-->
+
+</a>
 </body>
 
 </html>

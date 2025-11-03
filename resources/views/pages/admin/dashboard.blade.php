@@ -66,30 +66,49 @@
 
                 <!-- Menu Navigasi -->
                 <div class="navbar-nav w-100">
+                    <!-- Dashboard -->
                     <a href="{{ url('dashboard') }}" class="nav-item nav-link active">
                         <i class="fa fa-tachometer-alt me-2"></i>Dashboard
                     </a>
 
-                    <!-- Menu Proyek -->
-                    <a href="{{ route('proyek.index') }}" class="nav-item nav-link">
-                        <i class="fa fa-building me-2"></i>Proyek
-                    </a>
+                    <!-- Fitur Utama (Kategori) -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownFiturUtama" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-cogs me-2"></i>Fitur Utama
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownFiturUtama">
+                            <li><a href="{{ route('proyek.index') }}" class="dropdown-item {{ request()->is('proyek*') ? 'active' : '' }}">
+                                <i class="fa fa-building me-2"></i>Proyek
+                            </a></li>
+                            <li><a href="{{ url('tahapan-proyek') }}" class="dropdown-item {{ request()->is('tahapan-proyek*') ? 'active' : '' }}">
+                                <i class="fa fa-tasks me-2"></i>Tahapan Proyek
+                            </a></li>
+                            <li><a href="{{ url('progres-proyek') }}" class="dropdown-item {{ request()->is('progres-proyek*') ? 'active' : '' }}">
+                                <i class="fa fa-chart-line me-2"></i>Progres Proyek
+                            </a></li>
+                            <li><a href="{{ url('lokasi-proyek') }}" class="dropdown-item {{ request()->is('lokasi-proyek*') ? 'active' : '' }}">
+                                <i class="fa fa-map-marker-alt me-2"></i>Lokasi Proyek
+                            </a></li>
+                            <li><a href="{{ url('kontraktor') }}" class="dropdown-item {{ request()->is('kontraktor*') ? 'active' : '' }}">
+                                <i class="fa fa-users me-2"></i>Kontraktor
+                            </a></li>
+                        </ul>
+                    </div>
 
-                    <a href="{{ url('tahapan-proyek') }}" class="nav-item nav-link">
-                        <i class="fa fa-tasks me-2"></i>Tahapan Proyek
-                    </a>
-
-                    <a href="{{ url('progres-proyek') }}" class="nav-item nav-link">
-                        <i class="fa fa-chart-line me-2"></i>Progres Proyek
-                    </a>
-
-                    <a href="{{ url('lokasi-proyek') }}" class="nav-item nav-link">
-                        <i class="fa fa-map-marker-alt me-2"></i>Lokasi Proyek
-                    </a>
-
-                    <a href="{{ url('kontraktor') }}" class="nav-item nav-link">
-                        <i class="fa fa-users me-2"></i>Kontraktor
-                    </a>
+                    <!-- Master Data (Kategori) -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMasterData" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-database me-2"></i>Master Data
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMasterData">
+                            <li><a href="{{ route('user.index') }}" class="dropdown-item {{ request()->is('user*') ? 'active' : '' }}">
+                                <i class="fa fa-users me-2"></i>User
+                            </a></li>
+                            <li><a href="{{ route('warga.index') }}" class="dropdown-item {{ request()->is('warga*') ? 'active' : '' }}">
+                                <i class="fa fa-id-card me-2"></i>Warga
+                            </a></li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -247,7 +266,7 @@
                         ],
                         datasets: [{
                             label: 'Progress (%)',
-                            data: [85, 50, 70, 60, 40],
+                            data: [85, 50, 70, 60, 40], // Ganti dengan data aktual dari proyek
                             backgroundColor: ['#0d6efd', '#ffc107', '#198754', '#0dcaf0', '#dc3545']
                         }]
                     },
@@ -271,8 +290,6 @@
                 L.marker([0.5200, 101.4200]).addTo(map).bindPopup('Jalan Soebrantas - 50%');
                 L.marker([0.6000, 101.4300]).addTo(map).bindPopup('Jembatan Siak V - 70%');
             </script>
-
-
 
             <!-- Content End -->
 

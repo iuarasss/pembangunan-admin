@@ -1,25 +1,17 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TahapanController extends Controller
+class KontraktorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        {
-            $tahapan = [
-                ['urutan' => 1, 'nama' => 'Perencanaan', 'deskripsi' => 'Analisis kebutuhan, perancangan, dan penganggaran proyek.'],
-                ['urutan' => 2, 'nama' => 'Pelaksanaan', 'deskripsi' => 'Proses pembangunan sesuai rencana dan jadwal.'],
-                ['urutan' => 3, 'nama' => 'Monitoring', 'deskripsi' => 'Pengawasan jalannya proyek, memastikan sesuai target.'],
-                ['urutan' => 4, 'nama' => 'Evaluasi & Selesai', 'deskripsi' => 'Pemeriksaan akhir, laporan hasil, dan serah terima.'],
-            ];
-
-            return view('tahapan.index', compact('tahapan'));
-        }
+        //
     }
 
     /**

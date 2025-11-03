@@ -20,22 +20,56 @@
 
         <!-- Menu Navigasi -->
         <div class="navbar-nav w-100">
+            <!-- Menu Dashboard -->
             <a href="{{ url('dashboard') }}" class="nav-item nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                 <i class="fa fa-tachometer-alt me-2"></i>Dashboard
             </a>
 
-            <a href="{{ route('proyek.index') }}" class="nav-item nav-link {{ request()->is('proyek*') ? 'active' : '' }}">
-                <i class="fa fa-building me-2"></i>Proyek
-            </a>
+            <!-- Fitur Utama (Kategori) -->
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownFiturUtama" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-cogs me-2"></i>Fitur Utama
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownFiturUtama">
+                    <!-- Menu Proyek -->
+                    <li><a href="{{ route('proyek.index') }}" class="dropdown-item {{ request()->is('proyek*') ? 'active' : '' }}">
+                        <i class="fa fa-building me-2"></i>Proyek
+                    </a></li>
+                    <!-- Menu Tahapan Proyek -->
+                    <li><a href="{{ route('tahapan.index') }}" class="dropdown-item {{ request()->is('tahapan*') ? 'active' : '' }}">
+                        <i class="fa fa-list me-2"></i>Tahapan Proyek
+                    </a></li>
+                    <!-- Menu Progres Proyek -->
+                    <li><a href="{{ route('progres.index') }}" class="dropdown-item {{ request()->is('progres*') ? 'active' : '' }}">
+                        <i class="fa fa-chart-line me-2"></i>Progres Proyek
+                    </a></li>
+                    <!-- Menu Lokasi Proyek -->
+                    <li><a href="{{ route('lokasi.index') }}" class="dropdown-item {{ request()->is('lokasi*') ? 'active' : '' }}">
+                        <i class="fa fa-map-marker-alt me-2"></i>Lokasi Proyek
+                    </a></li>
+                    <!-- Menu Kontraktor -->
+                    <li><a href="{{ route('kontraktor.index') }}" class="dropdown-item {{ request()->is('kontraktor*') ? 'active' : '' }}">
+                        <i class="fa fa-people-carry me-2"></i>Kontraktor
+                    </a></li>
+                </ul>
+            </div>
 
-            <a href="{{ route('user.index') }}" class="nav-item nav-link {{ request()->is('user*') ? 'active' : '' }}">
-                <i class="fa fa-users me-2"></i>User
-            </a>
-
-
-            <a href="{{ route('warga.index') }}" class="nav-item nav-link {{ request()->is('warga*') ? 'active' : '' }}">
-                <i class="fa fa-id-card me-2"></i>Warga
-            </a>
+            <!-- Master Data (Kategori) -->
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMasterData" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-database me-2"></i>Master Data
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMasterData">
+                    <!-- Menu User -->
+                    <li><a href="{{ route('user.index') }}" class="dropdown-item {{ request()->is('user*') ? 'active' : '' }}">
+                        <i class="fa fa-users me-2"></i>User
+                    </a></li>
+                    <!-- Menu Warga -->
+                    <li><a href="{{ route('warga.index') }}" class="dropdown-item {{ request()->is('warga*') ? 'active' : '' }}">
+                        <i class="fa fa-id-card me-2"></i>Warga
+                    </a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 </div>

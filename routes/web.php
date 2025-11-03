@@ -4,9 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
+use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\ProyekController;
+use App\Http\Controllers\ProgresController;
 use App\Http\Controllers\TahapanController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KontraktorController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/proyek', [ProyekController::class, 'index']);
 
-Route::get('/tahapan', [TahapanController::class, 'index']);
+Route::resource('tahapan', TahapanController::class);
 
 Route::get('/auth', [AuthController::class, 'index']);
 
@@ -27,6 +30,12 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 Route::resource('proyek', ProyekController::class);
 
 Route::resource('user', UserController::class);
+
+Route::resource('progres', ProgresController::class);
+
+Route::resource('lokasi', LokasiController::class);
+
+Route::resource('kontraktor', KontraktorController::class);
 
 Route::get('/auth/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/auth/login', [AuthController::class, 'login'])->name('login.process');

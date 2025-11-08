@@ -10,8 +10,7 @@
             <div class="position-relative">
                 <img class="rounded-circle object-fit-cover shadow-sm" src="{{ asset('assets-admin/img/user.jpg') }}"
                     alt="Ayu Sara" style="width: 75px; height: 75px; border: 3px solid #fff; object-fit: cover;">
-                <div
-                    class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                 </div>
             </div>
             <div class="ms-3">

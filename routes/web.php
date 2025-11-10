@@ -1,18 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\WargaController;
-use App\Http\Controllers\LokasiController;
-use App\Http\Controllers\ProyekController;
-use App\Http\Controllers\ProgresController;
-use App\Http\Controllers\TahapanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KontraktorController;
+use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\ProgresController;
+use App\Http\Controllers\ProyekController;
+use App\Http\Controllers\TahapanController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WargaController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.auth.login-form');
 });
 
 Route::get('/proyek', [ProyekController::class, 'index']);
@@ -40,7 +40,6 @@ Route::resource('kontraktor', KontraktorController::class);
 Route::get('/profile', function () {
     return view('profile');
 })->name('user.profile');
-
 
 Route::get('/auth/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/auth/login', [AuthController::class, 'login'])->name('login.process');

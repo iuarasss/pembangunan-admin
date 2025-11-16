@@ -25,63 +25,56 @@
             </div>
         @endif
 
-        {{-- Form Edit Tahapan --}}
+        {{-- Form Edit --}}
         <form action="{{ route('tahapan.update', $tahapan->tahap_id) }}" method="POST" novalidate>
             @csrf
             @method('PUT')
 
             <div class="row">
-                {{-- PILIH PROYEK --}}
+
+                {{-- PROYEK --}}
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Proyek <span class="text-danger">*</span></label>
-                    <select name="id_proyek" class="form-select" required>
+                    <select name="proyek_id" class="form-select" required>
                         <option value="">-- Pilih Proyek --</option>
                         @foreach ($proyek as $p)
                             <option value="{{ $p->id_proyek }}"
-                                {{ $p->id_proyek == $tahapan->id_proyek ? 'selected' : '' }}>
+                                {{ $p->id_proyek == $tahapan->proyek_id ? 'selected' : '' }}>
                                 {{ $p->nama_proyek }}
                             </option>
                         @endforeach
                     </select>
                 </div>
 
-                {{-- NAMA TAHAPAN --}}
+                {{-- NAMA TAHAP --}}
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Nama Tahapan <span class="text-danger">*</span></label>
-                    <input type="text" name="nama_tahapan" class="form-control"
-                        value="{{ old('nama_tahapan', $tahapan->nama_tahapan) }}" required>
+                    <input type="text" name="nama_tahap" class="form-control"
+                        value="{{ old('nama_tahap', $tahapan->nama_tahap) }}" required>
                 </div>
 
-                {{-- TANGGAL MULAI --}}
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Tanggal Mulai <span class="text-danger">*</span></label>
-                    <input type="date" name="tanggal_mulai" class="form-control"
-                        value="{{ old('tanggal_mulai', $tahapan->tanggal_mulai) }}" required>
+                {{-- TARGET PERSEN --}}
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Target Persen (%)</label>
+                    <input type="number" name="target_persen" class="form-control"
+                        step="0.01" min="0" max="100"
+                        value="{{ old('target_persen', $tahapan->target_persen) }}">
                 </div>
 
-                {{-- TANGGAL SELESAI --}}
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Tanggal Selesai <span class="text-danger">*</span></label>
-                    <input type="date" name="tanggal_selesai" class="form-control"
-                        value="{{ old('tanggal_selesai', $tahapan->tanggal_selesai) }}" required>
+                {{-- TGL MULAI --}}
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Tanggal Mulai</label>
+                    <input type="date" name="tgl_mulai" class="form-control"
+                        value="{{ old('tgl_mulai', $tahapan->tgl_mulai) }}">
                 </div>
 
-                {{-- STATUS --}}
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Status <span class="text-danger">*</span></label>
-                    <select name="status" class="form-select" required>
-                        <option value="">-- Pilih Status --</option>
-                        <option value="Belum Mulai" {{ $tahapan->status == 'Belum Mulai' ? 'selected' : '' }}>Belum Mulai</option>
-                        <option value="Sedang Berjalan" {{ $tahapan->status == 'Sedang Berjalan' ? 'selected' : '' }}>Sedang Berjalan</option>
-                        <option value="Selesai" {{ $tahapan->status == 'Selesai' ? 'selected' : '' }}>Selesai</option>
-                    </select>
+                {{-- TGL SELESAI --}}
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Tanggal Selesai</label>
+                    <input type="date" name="tgl_selesai" class="form-control"
+                        value="{{ old('tgl_selesai', $tahapan->tgl_selesai) }}">
                 </div>
 
-                {{-- KETERANGAN --}}
-                <div class="col-md-12 mb-3">
-                    <label class="form-label">Keterangan</label>
-                    <textarea name="keterangan" class="form-control" rows="4">{{ old('keterangan', $tahapan->keterangan) }}</textarea>
-                </div>
             </div>
 
             <div class="d-flex gap-2 mt-3">

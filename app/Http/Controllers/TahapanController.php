@@ -1,72 +1,68 @@
 <?php
+
 namespace App\Http\Controllers;
 
+use App\Models\Tahapan;
+use App\Models\Proyek;
 use Illuminate\Http\Request;
 
 class TahapanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        {
-            $tahapan = [
-                ['urutan' => 1, 'nama' => 'Perencanaan', 'deskripsi' => 'Analisis kebutuhan, perancangan, dan penganggaran proyek.'],
-                ['urutan' => 2, 'nama' => 'Pelaksanaan', 'deskripsi' => 'Proses pembangunan sesuai rencana dan jadwal.'],
-                ['urutan' => 3, 'nama' => 'Monitoring', 'deskripsi' => 'Pengawasan jalannya proyek, memastikan sesuai target.'],
-                ['urutan' => 4, 'nama' => 'Evaluasi & Selesai', 'deskripsi' => 'Pemeriksaan akhir, laporan hasil, dan serah terima.'],
-            ];
-
-            return view('tahapan.index', compact('tahapan'));
-        }
+        $tahapan = Tahapan::with('proyek')->paginate(10);
+        return view('pages.tahapan.index', compact('tahapan'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $proyek = Proyek::all();
+        return view('pages.tahapan.create', compact('proyek'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'proyek_id'     => 'required|exists:proyek,id_proyek',
+            'nama_tahap'    => 'required',
+            'target_persen' => 'required|numeric',
+            'tgl_mulai'     => 'nullable|date',
+            'tgl_selesai'   => 'nullable|date',
+        ]);
+
+        Tahapan::create($request->all());
+
+        return redirect()->route('tahapan.index')->with('success', 'Tahapan ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $tahapan = Tahapan::findOrFail($id);
+        $proyek  = Proyek::all();
+        return view('pages.tahapan.edit', compact('tahapan', 'proyek'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'proyek_id'     => 'required|exists:proyek,id_proyek',
+            'nama_tahap'    => 'required',
+            'target_persen' => 'required|numeric',
+            'tgl_mulai'     => 'nullable|date',
+            'tgl_selesai'   => 'nullable|date',
+        ]);
+
+        $tahapan = Tahapan::findOrFail($id);
+        $tahapan->update($request->all());
+
+        return redirect()->route('tahapan.index')->with('success', 'Tahapan berhasil diperbarui.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $tahapan = Tahapan::findOrFail($id);
+        $tahapan->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('tahapan.index')->with('success', 'Tahapan berhasil dihapus.');
     }
 }

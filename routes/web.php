@@ -44,3 +44,6 @@ Route::get('/profile', function () {
 Route::get('/auth/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/auth/login', [AuthController::class, 'login'])->name('login.process');
 Route::get('/auth/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::resource('proyek', ProyekController::class);
+Route::resource('tahapan', TahapanController::class);

@@ -45,11 +45,11 @@
                                 <small class="text-muted">{{ $item->proyek->kode_proyek }}</small>
                             </td>
 
-                            <td class="text-start">{{ $item->nama_tahapan }}</td>
+                            <td class="text-start">{{ $item->nama_tahap }}</td>
 
-                            <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('d-m-Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($item->tgl_mulai)->format('d-m-Y') }}</td>
 
-                            <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d-m-Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($item->tgl_selesai)->format('d-m-Y') }}</td>
 
                             <td>
                                 @if ($item->status == 'Selesai')

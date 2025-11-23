@@ -1,17 +1,31 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\Tahapan;
 use App\Models\Proyek;
+use App\Models\Tahapan;
 use Illuminate\Http\Request;
 
 class TahapanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tahapan = Tahapan::with('proyek')->paginate(10);
-        return view('pages.tahapan.index', compact('tahapan'));
+        $query = \App\Models\Tahapan::with('proyek');
+
+        if ($request->search) {
+            $query->where('nama_tahap', 'like', '%' . $request->search . '%')
+                ->orWhereHas('proyek', function ($q) use ($request) {
+                    $q->where('nama_proyek', 'like', '%' . $request->search . '%');
+                });
+        }
+
+        if ($request->proyek_id) {
+            $query->where('proyek_id', $request->proyek_id);
+        }
+
+        $tahapan = $query->paginate(10)->appends($request->query());
+        $proyek  = \App\Models\Proyek::all();
+
+        return view('pages.tahapan.index', compact('tahapan', 'proyek'));
     }
 
     public function create()

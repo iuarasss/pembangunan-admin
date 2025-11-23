@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -11,12 +10,19 @@ class UserController extends Controller
     /**
      * Menampilkan daftar semua user
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        $query = \App\Models\User::query();
+
+        if ($request->search) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('email', 'like', '%' . $request->search . '%');
+        }
+
+        $users = $query->paginate(10)->appends($request->query());
+
         return view('pages.user.index', compact('users'));
     }
-
     /**
      * Menampilkan form tambah user
      */

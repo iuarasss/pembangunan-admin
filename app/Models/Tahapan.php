@@ -8,6 +8,7 @@ class Tahapan extends Model
     protected $table = 'tahapan_proyek';
     protected $primaryKey = 'tahap_id';
 
+
     protected $fillable = [
         'proyek_id',
         'nama_tahap',

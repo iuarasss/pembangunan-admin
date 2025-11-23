@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Warga;
@@ -7,9 +6,22 @@ use Illuminate\Http\Request;
 
 class WargaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $warga = Warga::all();
+        $query = \App\Models\Warga::query();
+
+        if ($request->search) {
+            $query->where('nama', 'like', '%' . $request->search . '%')
+                ->orWhere('nik', 'like', '%' . $request->search . '%')
+                ->orWhere('alamat', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->jenis_kelamin) {
+            $query->where('jenis_kelamin', $request->jenis_kelamin);
+        }
+
+        $warga = $query->paginate(10)->appends($request->query());
+
         return view('pages.warga.index', compact('warga'));
     }
 
@@ -21,9 +33,9 @@ class WargaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'nik' => 'required|unique:warga',
-            'alamat' => 'required',
+            'nama'          => 'required',
+            'nik'           => 'required|unique:warga',
+            'alamat'        => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',
         ]);
@@ -40,9 +52,9 @@ class WargaController extends Controller
     public function update(Request $request, Warga $warga)
     {
         $request->validate([
-            'nama' => 'required',
-            'nik' => 'required|unique:warga,nik,' . $warga->id,
-            'alamat' => 'required',
+            'nama'          => 'required',
+            'nik'           => 'required|unique:warga,nik,' . $warga->id,
+            'alamat'        => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',
         ]);

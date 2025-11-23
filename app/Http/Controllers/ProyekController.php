@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Proyek;
@@ -7,12 +6,34 @@ use Illuminate\Http\Request;
 
 class ProyekController extends Controller
 {
-    /**
-     * Tampilkan semua proyek
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        $proyek = Proyek::all();
+        $query = Proyek::query();
+
+        // Search
+        if ($request->search) {
+            $query->where('nama_proyek', 'LIKE', '%' . $request->search . '%');
+        }
+
+        // Filter tahun
+        if ($request->tahun) {
+            $query->where('tahun', $request->tahun);
+        }
+
+        // Filter status berdasarkan progress
+        if ($request->status) {
+            if ($request->status == 'selesai') {
+                $query->where('progress', '>=', 100);
+            } elseif ($request->status == 'berjalan') {
+                $query->where('progress', '>=', 50)->where('progress', '<', 100);
+            } elseif ($request->status == 'rencana') {
+                $query->where('progress', '<', 50);
+            }
+        }
+
+        $proyek = $query->paginate(10)->withQueryString();
+
         return view('pages.proyek.index', compact('proyek'));
     }
 
@@ -32,10 +53,10 @@ class ProyekController extends Controller
         $request->validate([
             'kode_proyek' => 'required|unique:proyek,kode_proyek',
             'nama_proyek' => 'required',
-            'lokasi' => 'required',
-            'tahun' => 'required|digits:4',
-            'anggaran' => 'required|numeric',
-            'progress' => 'nullable|numeric|min:0|max:100',
+            'lokasi'      => 'required',
+            'tahun'       => 'required|digits:4',
+            'anggaran'    => 'required|numeric',
+            'progress'    => 'nullable|numeric|min:0|max:100',
         ]);
 
         Proyek::create($request->all());
@@ -59,10 +80,10 @@ class ProyekController extends Controller
         $request->validate([
             'kode_proyek' => 'required|unique:proyek,kode_proyek,' . $proyek->id,
             'nama_proyek' => 'required',
-            'lokasi' => 'required',
-            'tahun' => 'required|digits:4',
-            'anggaran' => 'required|numeric',
-            'progress' => 'nullable|numeric|min:0|max:100',
+            'lokasi'      => 'required',
+            'tahun'       => 'required|digits:4',
+            'anggaran'    => 'required|numeric',
+            'progress'    => 'nullable|numeric|min:0|max:100',
         ]);
 
         $proyek->update($request->all());
@@ -86,9 +107,9 @@ class ProyekController extends Controller
     public function dashboard()
     {
         // Ambil data proyek dari database
-        $totalProyek = Proyek::count();
-        $totalTahapan = Proyek::count(); // ubah ini nanti jika tabel tahapan sudah ada
-        $rataProgress = Proyek::avg('progress');
+        $totalProyek     = Proyek::count();
+        $totalTahapan    = Proyek::count(); // ubah ini nanti jika tabel tahapan sudah ada
+        $rataProgress    = Proyek::avg('progress');
         $kontraktorAktif = Proyek::distinct('kontraktor')->count('kontraktor');
 
         // Ambil proyek terbaru

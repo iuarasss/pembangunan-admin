@@ -1,15 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\WargaController;
+use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\ProyekController;
+use App\Http\Controllers\ProgresController;
+use App\Http\Controllers\TahapanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KontraktorController;
-use App\Http\Controllers\LokasiController;
-use App\Http\Controllers\ProgresController;
-use App\Http\Controllers\ProyekController;
-use App\Http\Controllers\TahapanController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\WargaController;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages.auth.login-form');
@@ -47,3 +48,8 @@ Route::get('/auth/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::resource('proyek', ProyekController::class);
 Route::resource('tahapan', TahapanController::class);
+
+
+Route::get('/proyek/{id}', [ProyekController::class, 'show'])->name('proyek.show');
+
+Route::post('/media/upload', [MediaController::class, 'store'])->name('media.upload');

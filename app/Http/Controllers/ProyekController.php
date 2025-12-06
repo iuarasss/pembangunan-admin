@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Media;
 use App\Models\Proyek;
 use Illuminate\Http\Request;
 
@@ -49,20 +50,37 @@ class ProyekController extends Controller
      * Simpan data proyek baru
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'kode_proyek' => 'required|unique:proyek,kode_proyek',
-            'nama_proyek' => 'required',
-            'lokasi'      => 'required',
-            'tahun'       => 'required|digits:4',
-            'anggaran'    => 'required|numeric',
-            'progress'    => 'nullable|numeric|min:0|max:100',
-        ]);
+{
+    $request->validate([
+        'kode_proyek' => 'required|unique:proyek,kode_proyek',
+        'nama_proyek' => 'required',
+        'lokasi'      => 'required',
+        'tahun'       => 'required|digits:4',
+        'anggaran'    => 'required|numeric',
+        'progress'    => 'nullable|numeric|min:0|max:100',
+    ]);
 
-        Proyek::create($request->all());
+    // 1. buat proyek
+    $proyek = Proyek::create($request->all());
 
-        return redirect()->route('proyek.index')->with('success', 'Data proyek berhasil ditambahkan!');
+    // 2. upload file ke media table
+    if ($request->hasFile('files')) {
+        foreach ($request->file('files') as $file) {
+
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/proyek', $fileName);
+
+            Media::create([
+                'ref_table' => 'proyek',
+                'ref_id'    => $proyek->id_proyek,
+                'file_name' => $fileName,
+                'mime_type' => $file->getMimeType(),
+            ]);
+        }
     }
+
+    return redirect()->route('proyek.index')->with('success', 'Data proyek berhasil ditambahkan!');
+}
 
     /**
      * Tampilkan form edit proyek
@@ -78,7 +96,7 @@ class ProyekController extends Controller
     public function update(Request $request, Proyek $proyek)
     {
         $request->validate([
-            'kode_proyek' => 'required|unique:proyek,kode_proyek,' . $proyek->id,
+            'kode_proyek' => 'required|unique:proyek,kode_proyek,' . $proyek->id_proyek.',id_proyek',
             'nama_proyek' => 'required',
             'lokasi'      => 'required',
             'tahun'       => 'required|digits:4',
@@ -124,4 +142,21 @@ class ProyekController extends Controller
             'proyekTerbaru'
         ));
     }
+
+    public function show($id)
+{
+    // Ambil proyek
+    $proyek = Proyek::findOrFail($id);
+
+    // Ambil media terkait proyek
+    $media = \App\Models\Media::where('ref_table', 'proyek')
+                ->where('ref_id', $id)
+                ->orderBy('sort_order', 'asc')
+                ->get();
+
+    // Ambil tahapan proyek
+    $tahapan = $proyek->tahapan;
+
+    return view('pages.proyek.show', compact('proyek', 'media', 'tahapan'));
+}
 }

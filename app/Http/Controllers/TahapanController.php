@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Media;
 use App\Models\Proyek;
 use App\Models\Tahapan;
 use Illuminate\Http\Request;
@@ -44,11 +45,27 @@ class TahapanController extends Controller
             'tgl_selesai'   => 'nullable|date',
         ]);
 
-        Tahapan::create($request->all());
+        // simpan tahapan
+        $tahap = Tahapan::create($request->all());
+
+        // upload file
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $file->storeAs('public/tahapan', $fileName);
+
+                Media::create([
+                    'ref_table' => 'tahapan_proyek',
+                    'ref_id'    => $tahap->tahap_id,
+                    'file_name' => $fileName,
+                    'mime_type' => $file->getMimeType(),
+                ]);
+            }
+        }
 
         return redirect()->route('tahapan.index')->with('success', 'Tahapan ditambahkan.');
     }
-
     public function edit($id)
     {
         $tahapan = Tahapan::findOrFail($id);

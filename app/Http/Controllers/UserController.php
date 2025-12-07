@@ -19,6 +19,10 @@ class UserController extends Controller
                 ->orWhere('email', 'like', '%' . $request->search . '%');
         }
 
+        if ($request->role) {
+            $query->where('role', $request->role);
+        }
+
         $users = $query->paginate(10)->appends($request->query());
 
         return view('pages.user.index', compact('users'));
@@ -28,6 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $roles = ['admin', 'guest'];
         return view('pages.user.create');
     }
 
@@ -39,12 +44,14 @@ class UserController extends Controller
         $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users',
+            'role'     => 'required|in:admin,guest',
             'password' => 'required|confirmed|min:6',
         ]);
 
         User::create([
             'name'     => $request->name,
             'email'    => $request->email,
+            'role'     => $request->role,
             'password' => Hash::make($request->password),
         ]);
 
@@ -56,6 +63,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $roles = ['admin', 'guest'];
         return view('pages.user.edit', compact('user'));
     }
 
@@ -67,12 +75,14 @@ class UserController extends Controller
         $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email,' . $user->id,
+            'role'     => 'required|in:admin,guest',
             'password' => 'nullable|confirmed|min:6',
         ]);
 
         $data = [
             'name'  => $request->name,
             'email' => $request->email,
+            'role'  => $request->role,
         ];
 
         if ($request->password) {

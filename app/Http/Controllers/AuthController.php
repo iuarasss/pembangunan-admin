@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -26,27 +27,26 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $user = \App\Models\User::where('email', $request->email)->first();
+        $credentials = $request->only('email', 'password');
 
-        // Cek apakah user ditemukan
-        if ($user && \Illuminate\Support\Facades\Hash::check($request->password, $user->password)) {
-            // Simpan session user
-            session([
-                'user_id'    => $user->id,
-                'user_name'  => $user->name,
-                'user_email' => $user->email,
-            ]);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-            // Redirect ke dashboard dengan pesan sukses
-            return redirect()->route('dashboard')->with('success', 'Login berhasil! Selamat datang, ' . $user->name);
+            return redirect()->route('dashboard')
+                ->with('success', 'Login berhasil! Selamat datang, ' . Auth::user()->name);
         }
 
-        // Jika gagal login
-        return back()->withInput($request->only('email'))->with('error', 'Email atau password salah!');
+        return back()->withInput($request->only('email'))
+            ->with('error', 'Email atau password salah!');
     }
-    public function logout()
+
+    public function logout(Request $request)
     {
-        session()->flush();
+        Auth::logout();                         // Logout user dari guard Laravel
+        $request->session()->invalidate();      // Hapus session
+        $request->session()->regenerateToken(); // Regenerate CSRF token
+
         return redirect()->route('login')->with('success', 'Berhasil logout.');
     }
+
 }

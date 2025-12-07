@@ -8,7 +8,6 @@
     <div class="container-fluid pt-4 px-4">
         <div class="bg-light rounded p-4 shadow-sm">
 
-            <!-- Header + Search + Filter -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h5 class="mb-0">Daftar Proyek</h5>
                 <a href="{{ route('proyek.create') }}" class="btn btn-primary">
@@ -16,14 +15,7 @@
                 </a>
             </div>
 
-            <!-- PAGINATION RAPIIII -->
-            <div class="d-flex justify-content-end mt-3">
-                {{ $proyek->appends(request()->query())->links('pagination::bootstrap-5') }}
-            </div>
-
-            <!-- Form Search & Filter -->
             <form method="GET" action="{{ route('proyek.index') }}" class="row g-3 mb-4">
-
                 <div class="col-md-4">
                     <input type="text" name="search" class="form-control" placeholder="Cari nama proyek / lokasi..."
                         value="{{ request('search') }}">
@@ -32,7 +24,7 @@
                 <div class="col-md-3">
                     <select name="tahun" class="form-control">
                         <option value="">Filter Tahun</option>
-                        @foreach (range(2018, 2025) as $th)
+                        @foreach (range(date('Y'), 2018) as $th)
                             <option value="{{ $th }}" {{ request('tahun') == $th ? 'selected' : '' }}>
                                 {{ $th }}
                             </option>
@@ -56,7 +48,6 @@
                 </div>
             </form>
 
-            <!-- Alert -->
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
@@ -64,7 +55,6 @@
                 </div>
             @endif
 
-            <!-- Tabel Proyek -->
             <div class="table-responsive">
                 <table class="table table-bordered align-middle text-center">
                     <thead class="table-primary">
@@ -101,21 +91,29 @@
                                 </td>
 
                                 <td>
+                                    {{-- Tombol Detail --}}
+                                    <a href="{{ route('proyek.show', $item->id_proyek) }}"
+                                        class="btn btn-outline-primary btn-sm" title="Detail">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+
+                                    {{-- Tombol Edit --}}
                                     <a href="{{ route('proyek.edit', $item->id_proyek) }}"
                                         class="btn btn-outline-success btn-sm" title="Edit">
                                         <i class="fa fa-pen"></i>
                                     </a>
+
+                                    {{-- Tombol Hapus --}}
                                     <form action="{{ route('proyek.destroy', $item->id_proyek) }}" method="POST"
-                                        class="d-inline">
+                                        class="d-inline"
+                                        onsubmit="return confirm('Yakin ingin menghapus proyek ini dan semua media terkait?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger btn-sm"
-                                            onclick="return confirm('Yakin ingin menghapus proyek ini?')" title="Hapus">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm" title="Hapus">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </form>
                                 </td>
-
                             </tr>
                         @empty
                             <tr>
@@ -126,8 +124,9 @@
                 </table>
             </div>
 
-
-
+            <div class="d-flex justify-content-end mt-3">
+                {{ $proyek->appends(request()->query())->links('pagination::bootstrap-5') }}
+            </div>
         </div>
     </div>
 @endsection

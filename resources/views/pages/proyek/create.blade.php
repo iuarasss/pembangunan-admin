@@ -24,7 +24,7 @@
             @endif
 
             {{-- Form Tambah Proyek --}}
-            <form action="{{ route('proyek.store') }}" method="POST" novalidate>
+            <form action="{{ route('proyek.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -72,11 +72,11 @@
                             value="{{ old('progress', 0) }}">
                     </div>
 
-                     <div class="form-group">
-                    <label>Upload File (foto/pdf) :</label>
-                    <input type="file" name="files[]" multiple class="form-control">
-                </div>
-
+                    {{-- Bagian Upload File --}}
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Upload File (foto/pdf) :</label>
+                        <input type="file" name="files[]" multiple class="form-control">
+                    </div>
                 </div>
 
                 <div class="d-flex gap-2 mt-3">
@@ -85,9 +85,6 @@
                     </button>
                     <a href="{{ route('proyek.index') }}" class="btn btn-outline-secondary">Batal</a>
                 </div>
-
-
-
             </form>
         </div>
     </div>

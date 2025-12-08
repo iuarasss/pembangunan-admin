@@ -15,6 +15,10 @@
                 </a>
             </div>
 
+            <div class="d-flex justify-content-end mt-3">
+                {{ $proyek->appends(request()->query())->links('pagination::bootstrap-5') }}
+            </div>
+
             <form method="GET" action="{{ route('proyek.index') }}" class="row g-3 mb-4">
                 <div class="col-md-4">
                     <input type="text" name="search" class="form-control" placeholder="Cari nama proyek / lokasi..."
@@ -124,9 +128,7 @@
                 </table>
             </div>
 
-            <div class="d-flex justify-content-end mt-3">
-                {{ $proyek->appends(request()->query())->links('pagination::bootstrap-5') }}
-            </div>
+
         </div>
     </div>
 @endsection

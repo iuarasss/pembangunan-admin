@@ -92,8 +92,7 @@
                                 <div class="p-2 text-center">
                                     @if (str_starts_with($m->mime_type, 'image/'))
                                         {{-- SINKRONISASI: Menggunakan asset() untuk URL publik --}}
-                                        <img src="{{ asset('storage/proyek/' . $m->file_name) }}"
-                                            class="img-fluid rounded"
+                                        <img src="{{ asset('storage/proyek/' . $m->file_name) }}" class="img-fluid rounded"
                                             style="height:100px; object-fit:cover; width:100%;">
                                     @else
                                         <i class="bi bi-file-earmark-text" style="font-size:40px;"></i>
@@ -104,12 +103,15 @@
                                 </div>
                                 <div class="p-3">
                                     {{-- SINKRONISASI: Menggunakan asset() untuk URL Lihat/Download --}}
-                                    <a href="{{ asset('storage/proyek/' . $m->file_name) }}" target="_blank" class="btn btn-outline-info btn-sm w-100">Lihat</a>
+                                    <a href="{{ asset('storage/proyek/' . $m->file_name) }}" target="_blank"
+                                        class="btn btn-outline-info btn-sm w-100">Lihat</a>
                                 </div>
                             </div>
                         </div>
                     @empty
-                        <div class="col-12"><p class="text-muted">Belum ada media terlampir.</p></div>
+                        <div class="col-12">
+                            <p class="text-muted">Belum ada media terlampir.</p>
+                        </div>
                     @endforelse
                 </div>
                 {{-- End Tampilkan media --}}

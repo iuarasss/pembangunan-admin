@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->increments('media_id');
-            $table->string('ref_table');       // proyek / tahapan_proyek
-            $table->unsignedInteger('ref_id'); // id_proyek / tahap_id
+            $table->string('ref_table');
+            $table->unsignedInteger('ref_id');
             $table->string('file_name');
             $table->string('mime_type')->nullable();
             $table->string('caption')->nullable();

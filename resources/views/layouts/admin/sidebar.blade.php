@@ -1,5 +1,6 @@
 <div class="sidebar pe-4 pb-3">
     <nav class="navbar bg-light navbar-light">
+
         <!-- Logo -->
         <a href="{{ url('dashboard') }}" class="navbar-brand mx-4 mb-3">
             <h3 class="text-primary"><i class="fa fa-hard-hat me-2"></i>E-Proyek</h3>
@@ -8,20 +9,33 @@
         <!-- Profil User -->
         <div class="d-flex align-items-center ms-4 mb-4">
             <div class="position-relative">
-                <img class="rounded-circle object-fit-cover shadow-sm" src="{{ asset('assets-admin/img/user.jpg') }}"
-                    alt="Ayu Sara" style="width: 75px; height: 75px; border: 3px solid #fff; object-fit: cover;">
-                <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+
+                @php
+                    // Ambil foto user
+                    $userPhoto = Auth::user()->photo ?? null;
+                    // Jika foto ada, ambil dari storage, jika tidak pakai default
+                    $photoUrl = $userPhoto ? asset('storage/' . $userPhoto) : asset('default-user.png');
+                @endphp
+
+                <img class="rounded-circle object-fit-cover shadow-sm" src="{{ $photoUrl }}"
+                    alt="{{ Auth::user()->name ?? 'User' }}"
+                    style="width: 75px; height: 75px; border: 3px solid #fff; object-fit: cover;">
+
+                <div
+                    class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                 </div>
             </div>
+
             <div class="ms-3">
-                <h6 class="mb-0">Ayu Sara</h6>
-                <span>Admin</span>
+                <h6 class="mb-0">{{ Auth::user()->name ?? 'Guest' }}</h6>
+                <span>{{ Auth::user()->role ?? 'User' }}</span>
             </div>
         </div>
 
 
         <!-- Menu Navigasi -->
         <div class="navbar-nav w-100">
+
             <a href="{{ url('dashboard') }}" class="nav-item nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                 <i class="fa fa-tachometer-alt me-2"></i>Dashboard
             </a>
@@ -58,5 +72,6 @@
                 <i class="fa fa-id-card me-2"></i>Warga
             </a>
         </div>
+
     </nav>
 </div>

@@ -11,6 +11,7 @@
 
 <body>
     <section class="container">
+        <img src="{{ asset('assets-admin/img/logo-proyek.png') }}" alt="Logo" class="login-logo">
         <div class="login-wrapper">
             <h1>Login ke E-Proyek</h1>
             <p>Sistem Pembangunan dan Monitoring Proyek</p>

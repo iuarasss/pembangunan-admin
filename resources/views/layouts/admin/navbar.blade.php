@@ -16,17 +16,16 @@
         <div class="nav-item dropdown">
 
             @php
-                // Ambil foto user
-                $userPhoto = Auth::user()->photo ?? null;
-                // Generate link foto storage atau default
-                $photoUrl = $userPhoto ? asset('storage/' . $userPhoto) : asset('default-user.png');
+                use Illuminate\Support\Facades\Storage;
+
+                $user = Auth::user();
+
+                $photoUrl = $user->photo ? Storage::url($user->photo) : asset('assets-admin/img/default-user.png');
             @endphp
 
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <img class="rounded-circle object-fit-cover shadow-sm"
-                     src="{{ $photoUrl }}"
-                     alt="{{ Auth::user()->name ?? 'User' }}"
-                     style="width: 30px; height: 30px; object-fit: cover;">
+                <img class="rounded-circle object-fit-cover shadow-sm" src="{{ $photoUrl }}"
+                    alt="{{ Auth::user()->name ?? 'User' }}" style="width: 30px; height: 30px; object-fit: cover;">
                 <span class="d-none d-lg-inline-flex">{{ Auth::user()->name ?? 'Guest' }}</span>
             </a>
 

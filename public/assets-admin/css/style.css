@@ -311,22 +311,29 @@ body {
     transition: 1.5s ease;
 }
 
+/* ================== FIX LOGO ================== */
 .container::before {
     content: '';
-    position: relative;
-    align-self: center;
-    height: 300px;
-    width: 500px;
-    left: 80px;
-    bottom: 0;
-    background: url("../img/proyek-login.png");
-    background-size: cover;
-    background-position: center;
-    background-size: contain;
-    background-position: center;
-    transition: .8s ease;
-    opacity: 1;
+    display: none;
+    /* MATIKAN LOGO HARDCODE CSS */
 }
+
+/* Logo login dari HTML */
+.login-logo {
+    width: 500px;
+    margin-left: 200px;
+    max-width: 90%;
+    margin-bottom: 25px;
+    object-fit: contain;
+}
+
+.sidebar-logo {
+    width: 140px;
+    /* PAS untuk sidebar */
+    height: auto;
+    display: block;
+}
+
 
 .login-wrapper {
     display: flex;

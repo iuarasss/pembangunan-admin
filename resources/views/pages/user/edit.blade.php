@@ -23,7 +23,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('user.update', $user->id) }}" method="POST">
+            <form action="{{ route('user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -61,6 +61,16 @@
                         <input type="password" name="password_confirmation" class="form-control"
                             placeholder="Kosongkan jika tidak diubah">
                     </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Foto User</label>
+                        <input type="file" name="photo" class="form-control" accept="image/*"
+                            onchange="previewPhoto(event)">
+
+                        <small class="text-muted">
+                            Kosongkan jika tidak ingin mengubah foto
+                        </small>
+                    </div>
+
                 </div>
 
                 <div class="mt-3">

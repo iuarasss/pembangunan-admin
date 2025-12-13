@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -46,17 +47,28 @@ class UserController extends Controller
             'email'    => 'required|email|unique:users',
             'role'     => 'required|in:admin,guest',
             'password' => 'required|confirmed|min:6',
+            'photo'    => 'nullable|image|max:2048',
         ]);
 
-        User::create([
+        // SIMPAN USER KE VARIABEL
+        $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'role'     => $request->role,
             'password' => Hash::make($request->password),
         ]);
 
+        // SIMPAN FOTO
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo')->store('user-photo', 'public');
+            $user->update([
+                'photo' => $photo
+            ]);
+        }
+
         return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan!');
     }
+
 
     /**
      * Menampilkan form edit user
@@ -77,6 +89,7 @@ class UserController extends Controller
             'email'    => 'required|email|unique:users,email,' . $user->id,
             'role'     => 'required|in:admin,guest',
             'password' => 'nullable|confirmed|min:6',
+            'photo'    => 'nullable|image|max:2048',
         ]);
 
         $data = [
@@ -89,10 +102,16 @@ class UserController extends Controller
             $data['password'] = Hash::make($request->password);
         }
 
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo')->store('user-photo', 'public');
+            $data['photo'] = $photo;
+        }
+
         $user->update($data);
 
         return redirect()->route('user.index')->with('success', 'User berhasil diperbarui!');
     }
+
 
     /**
      * Menghapus user

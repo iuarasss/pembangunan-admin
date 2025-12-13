@@ -32,13 +32,7 @@ Route::get('dashboard', [DashboardController::class, 'index'])
 
 Route::resource('proyek', ProyekController::class);
 
-Route::group(['middleware' => ['checkrole:admin']], function () {
-
-    Route::resource('user', UserController::class);
-
-    /** List Route Lainnya */
-
-});
+Route::resource('user', UserController::class);
 
 Route::resource('progres', ProgresController::class);
 
@@ -60,3 +54,7 @@ Route::resource('tahapan', TahapanController::class);
 Route::get('/proyek/{id}', [ProyekController::class, 'show'])->name('proyek.show');
 
 Route::post('/media/upload', [MediaController::class, 'store'])->name('media.upload');
+
+Route::get('/kontak', function () {
+    return view('pages.kontak.kontak');
+})->name('kontak');

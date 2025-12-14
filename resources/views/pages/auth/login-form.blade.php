@@ -11,10 +11,15 @@
 
 <body>
     <section class="container">
-        <img src="{{ asset('assets-admin/img/logo-proyek.png') }}" alt="Logo" class="login-logo">
+
+
         <div class="login-wrapper">
-            <h1>Login ke E-Proyek</h1>
-            <p>Sistem Pembangunan dan Monitoring Proyek</p>
+            <h1>Login ke Sistem</h1>
+            <!-- Logo -->
+            <div style="text-align: center; margin-bottom: 0px;">
+                <img src="{{ asset('assets-admin/img/logo-proyek.png') }}" alt="Logo"
+                    style="height: 130px; object-fit: contain;">
+            </div>
 
             {{-- Pesan sukses --}}
             @if (session('success'))

@@ -2,9 +2,11 @@
     <nav class="navbar bg-light navbar-light flex-column">
 
         <!-- Logo -->
-        <a href="{{ url('dashboard') }}" class="navbar-brand d-flex justify-content-center align-items-center mb-2 mt-3">
-            <img src="{{ asset('assets-admin/img/logo-proyek.png') }}" alt="E-Proyek" class="sidebar-logo">
-        </a>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="{{ asset('assets-admin/img/logo-proyek.png') }}" alt="Logo"
+                style="height: 110px; object-fit: contain;">
+        </div>
+
 
         <!-- Profil User -->
         <div class="d-flex align-items-center px-3 mb-3">

@@ -15,7 +15,11 @@
 
         <div class="login-wrapper">
             <h1>Login ke Sistem</h1>
-
+            <!-- Logo -->
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img src="{{ asset('assets-admin/img/logo-proyek.png') }}" alt="Logo"
+                    style="height: 130px; object-fit: contain;">
+            </div>
 
             {{-- Pesan sukses --}}
             @if (session('success'))

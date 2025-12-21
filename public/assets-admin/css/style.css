@@ -493,3 +493,109 @@ body {
     margin: 0;
     padding: 0;
 }
+
+
+.page-header {
+    padding: 14px 24px;
+    margin-bottom: 16px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.page-header .breadcrumb {
+    margin-bottom: 0;
+}
+
+.page-header .breadcrumb-item {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.page-header .breadcrumb-item.active {
+    font-weight: 600;
+    color: #111827;
+}
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(to right, #eef7ff, #e3f2fd);
+}
+
+/* CONTAINER UTAMA */
+.login-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* KIRI - LOGIN */
+.login-left {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 360px;
+}
+
+.login-wrapper h1 {
+    color: #2563eb;
+    margin-bottom: 30px;
+}
+
+/* FORM */
+.form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 30px;
+    border: 2px solid #2563eb;
+    margin-bottom: 18px;
+    outline: none;
+}
+
+.form button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(to right, #2563eb, #3b82f6);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* KANAN - DESKRIPSI */
+.login-right {
+    width: 55%;
+    display: flex;
+    align-items: center;
+    padding: 80px;
+}
+
+.system-info {
+    max-width: 480px;
+}
+
+.system-info h2 {
+    font-size: 34px;
+    color: #1e3a8a;
+    margin-bottom: 15px;
+}
+
+.system-info p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #334155;
+}

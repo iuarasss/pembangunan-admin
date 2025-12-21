@@ -58,3 +58,7 @@ Route::post('/media/upload', [MediaController::class, 'store'])->name('media.upl
 Route::get('/kontak', function () {
     return view('pages.kontak.kontak');
 })->name('kontak');
+
+Route::resource('progres-proyek', ProgresController::class);
+Route::resource('lokasi-proyek', LokasiController::class);
+Route::resource('kontraktor', KontraktorController::class);

@@ -1,11 +1,10 @@
+<!-- Footer -->
 <footer class="text-center py-3 mt-4">
-                <small class="text-muted">
-                    © {{ date('Y') }} Sistem Pembangunan dan Monitoring Proyek · All Rights Reserved
-                </small>
-            </div>
-        </div>
-    </div>
+    <small class="text-muted">
+        © {{ date('Y') }} Sistem Pembangunan dan Monitoring Proyek. All Rights Reserved.
+    </small>
 </footer>
+
 
 <!-- Script -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

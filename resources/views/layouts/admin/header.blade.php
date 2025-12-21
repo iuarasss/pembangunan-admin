@@ -1,25 +1,33 @@
 <head>
+    <!-- ================= META ================= -->
     <meta charset="utf-8">
-    <title>E-Proyek - Pembangunan dan Monitoring Proyek</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Favicon -->
-    <link href="{{ asset('assets-admin/img/favicon.ico') }}" rel="icon">
+    <title>@yield('title', 'E-Proyek') - Pembangunan & Monitoring Proyek</title>
+    <meta name="description" content="Sistem Informasi Pembangunan dan Monitoring Proyek">
+    <meta name="keywords" content="E-Proyek, Monitoring Proyek, Sistem Informasi Proyek">
 
-    <!-- Google Web Fonts -->
+    <!-- ================= FAVICON ================= -->
+    <link rel="icon" href="{{ asset('assets-admin/img/favicon.ico') }}" type="image/x-icon">
+
+    <!-- ================= GOOGLE FONTS ================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- ================= ICONS ================= -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    <!-- Libraries Stylesheet -->
-    <link href="{{ asset('assets-admin/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets-admin/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+    <!-- ================= LIBRARIES ================= -->
+    <link rel="stylesheet" href="{{ asset('assets-admin/lib/owlcarousel/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets-admin/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}">
 
-    <!-- Bootstrap & Custom Styles -->
-    <link href="{{ asset('assets-admin/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets-admin/css/style.css') }}" rel="stylesheet">
+    <!-- ================= CORE CSS ================= -->
+    <link rel="stylesheet" href="{{ asset('assets-admin/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets-admin/css/style.css') }}">
+
+    <!-- ================= PAGE SPECIFIC CSS ================= -->
+    @stack('styles')
 </head>

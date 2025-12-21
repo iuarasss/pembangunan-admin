@@ -84,6 +84,11 @@
                 class="nav-item nav-link {{ request()->is('warga*') ? 'active' : '' }}">
                 <i class="fa fa-id-card me-2"></i>Warga
             </a>
+
+            <div class="text-muted small fw-bold text-uppercase px-3 mt-4 mb-2">
+                Kontak Pengembang
+            </div>
+
             <a href="{{ route('kontak') }}" class="nav-item nav-link {{ request()->is('kontak*') ? 'active' : '' }}">
                 <i class="fa fa-address-book me-2"></i>Kontak
             </a>

@@ -9,7 +9,11 @@
         <div class="bg-light rounded p-4 shadow-sm">
 
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h5 class="mb-0">Daftar Proyek</h5>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="text-primary mb-0">
+                        <i class="fa fa-building me-2"></i>Daftar Proyek
+                    </h5>
+                </div>
                 <a href="{{ route('proyek.create') }}" class="btn btn-primary">
                     <i class="fa fa-plus me-2"></i>Tambah Proyek
                 </a>

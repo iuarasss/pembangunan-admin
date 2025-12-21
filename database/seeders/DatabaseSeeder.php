@@ -1,13 +1,10 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Database\Seeders\ProyekSeeder;
 use Illuminate\Support\Facades\Hash;
-use Database\Seeders\CreateFirstUser;
-use Database\Seeders\TahapanProyekSeeder;
+use Database\Seeders\ProgresProyekSeederFinal;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +21,7 @@ class DatabaseSeeder extends Seeder
         //     CreateFirstUser::class,
         //     ProyekSeeder::class,
         //     TahapanProyekSeeder::class,
+        //ProgresProyekSeederFinal::class,
         // ]);
     }
 }

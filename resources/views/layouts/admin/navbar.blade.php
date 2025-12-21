@@ -1,38 +1,56 @@
-<nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0 shadow-sm">
-    <a href="#" class="sidebar-toggler flex-shrink-0">
-        <i class="fa fa-bars"></i>
-    </a>
+<nav class="navbar navbar-expand bg-light navbar-light sticky-top shadow-sm">
+    <div class="container-fluid px-4">
 
-    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-        <li class="breadcrumb-item text-sm">
-            <a class="opacity-5 text-dark" href="#"> Pages </a>
-        </li>
-        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">
-            @yield('page')
-        </li>
-    </ol>
+        <!-- Sidebar Toggler -->
+        <a href="#" class="sidebar-toggler flex-shrink-0 me-3">
+            <i class="fa fa-bars fs-5"></i>
+        </a>
 
-    <div class="navbar-nav align-items-center ms-auto">
-        <div class="nav-item dropdown">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="d-none d-md-block">
+            <ol class="breadcrumb mb-0 align-items-center">
+                <li class="breadcrumb-item">
+                    <span class="text-dark fw-medium">Pages</span>
+                </li>
+                <li class="breadcrumb-item active fw-semibold text-dark">
+                    @yield('page')
+                </li>
+            </ol>
+        </nav>
 
-            @php
-                use Illuminate\Support\Facades\Storage;
+        <!-- Right Navbar -->
+        <div class="navbar-nav align-items-center ms-auto">
+            <div class="nav-item dropdown">
 
-                $user = Auth::user();
+                @php
+                    use Illuminate\Support\Facades\Storage;
+                    $user = Auth::user();
+                    $photoUrl = $user->photo
+                        ? Storage::url($user->photo)
+                        : asset('assets-admin/img/default-user.png');
+                @endphp
 
-                $photoUrl = $user->photo ? Storage::url($user->photo) : asset('assets-admin/img/default-user.png');
-            @endphp
+                <a href="#" class="nav-link dropdown-toggle d-flex align-items-center gap-2"
+                   data-bs-toggle="dropdown">
+                    <img class="rounded-circle shadow-sm"
+                         src="{{ $photoUrl }}"
+                         alt="{{ $user->name ?? 'User' }}"
+                         width="32"
+                         height="32"
+                         style="object-fit: cover;">
+                    <span class="d-none d-lg-inline fw-medium">
+                        {{ $user->name ?? 'Guest' }}
+                    </span>
+                </a>
 
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <img class="rounded-circle object-fit-cover shadow-sm" src="{{ $photoUrl }}"
-                    alt="{{ Auth::user()->name ?? 'User' }}" style="width: 30px; height: 30px; object-fit: cover;">
-                <span class="d-none d-lg-inline-flex">{{ Auth::user()->name ?? 'Guest' }}</span>
-            </a>
+                <div class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 mt-2">
+                    <a href="{{ route('logout') }}" class="dropdown-item text-danger">
+                        <i class="fa fa-sign-out-alt me-2"></i> Logout
+                    </a>
+                </div>
 
-            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
             </div>
-
         </div>
+
     </div>
 </nav>

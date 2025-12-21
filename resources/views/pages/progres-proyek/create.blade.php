@@ -1,6 +1,8 @@
 @extends('layouts.admin.app')
 
 @section('title', 'Tambah Progres Proyek')
+@section('page', 'Tambah Progress Proyek')
+
 
 @section('content')
 <div class="container-fluid pt-4 px-4">

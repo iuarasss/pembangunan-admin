@@ -12,17 +12,14 @@ class ProyekController extends Controller
     {
         $query = Proyek::query();
 
-        // Search
         if ($request->search) {
             $query->where('nama_proyek', 'LIKE', '%' . $request->search . '%');
         }
 
-        // Filter tahun
         if ($request->tahun) {
             $query->where('tahun', $request->tahun);
         }
 
-        // Filter status berdasarkan progress
         if ($request->status) {
             if ($request->status == 'selesai') {
                 $query->where('progress', '>=', 100);

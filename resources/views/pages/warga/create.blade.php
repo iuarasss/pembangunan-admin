@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Tambah Warga')
+@section('page', 'Tambah Warga')
 
 @section('content')
 <div class="container-fluid pt-4 px-4">

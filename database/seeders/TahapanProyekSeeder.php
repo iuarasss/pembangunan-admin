@@ -10,13 +10,10 @@ class TahapanProyekSeeder extends Seeder
 {
     public function run()
     {
-        // Ambil semua ID proyek (100 data dari ProyekSeeder)
         $proyekIds = DB::table('proyek')->pluck('id_proyek');
 
-        // Clear table (biar tidak double)
         DB::table('tahapan_proyek')->truncate();
 
-        // Daftar nama tahapan berbahasa Indonesia
         $tahapanList = [
             "Perencanaan Awal",
             "Survey Lokasi",

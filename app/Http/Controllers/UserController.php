@@ -79,9 +79,6 @@ class UserController extends Controller
         return view('pages.user.edit', compact('user'));
     }
 
-    /**
-     * Memperbarui data user
-     */
     public function update(Request $request, User $user)
     {
         $request->validate([
@@ -102,7 +99,7 @@ class UserController extends Controller
             $data['password'] = Hash::make($request->password);
         }
 
-        if ($request->hasFile('photo')) {
+        if ($request->hasFile('photo')) {-
             $photo = $request->file('photo')->store('user-photo', 'public');
             $data['photo'] = $photo;
         }

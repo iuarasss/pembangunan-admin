@@ -105,7 +105,7 @@ class ProyekController extends Controller
         ]);
 
         // Update data proyek
-        $proyek->update($request->all());
+        $proyek->update($request->except(['files']));
 
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {

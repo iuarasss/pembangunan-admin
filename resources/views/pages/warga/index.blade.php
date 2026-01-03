@@ -17,7 +17,7 @@
                 </a>
             </div>
 
-            <!-- PAGINATION RAPIIII -->
+            {{-- Pagination --}}
             <div class="d-flex justify-content-end mt-3">
                 {{ $warga->appends(request()->query())->links('pagination::bootstrap-5') }}
             </div>
@@ -25,17 +25,17 @@
             {{-- Search --}}
             <form method="GET" class="row g-2 mb-3">
                 <div class="col-md-4">
-                    <input type="text" name="search" value="{{ request('search') }}" class="form-control"
-                        placeholder="Cari nama atau NIK...">
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        class="form-control" placeholder="Cari nama atau NIK...">
                 </div>
 
                 <div class="col-md-3">
                     <select name="jenis_kelamin" class="form-control">
                         <option value="">-- Semua Jenis Kelamin --</option>
-                        <option value="Laki-laki" {{ request('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>
+                        <option value="Laki-laki" @selected(request('jenis_kelamin') == 'Laki-laki')>
                             Laki-laki
                         </option>
-                        <option value="Perempuan" {{ request('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
+                        <option value="Perempuan" @selected(request('jenis_kelamin') == 'Perempuan')>
                             Perempuan
                         </option>
                     </select>
@@ -50,42 +50,70 @@
                 </div>
             </form>
 
-            {{-- Pesan sukses --}}
+            {{-- Alert --}}
             @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="alert alert-success alert-dismissible fade show">
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
 
-            {{-- Tabel warga --}}
+            {{-- Tabel Warga --}}
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle">
                     <thead class="table-primary">
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
+                            <th>Profil</th>
                             <th>NIK</th>
                             <th>Alamat</th>
                             <th>Jenis Kelamin</th>
                             <th>Tanggal Lahir</th>
-                            <th width="140">Aksi</th>
+                            <th width="140" class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($warga as $index => $item)
                             <tr>
                                 <td class="text-center">{{ $warga->firstItem() + $index }}</td>
-                                <td>{{ $item->nama }}</td>
+
+                                {{-- PROFIL WARGA --}}
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <img
+                                            src="{{ $item->foto
+                                                ? asset('storage/' . $item->foto)
+                                                : asset('assets-admin/img/default-user.png') }}"
+                                            class="rounded-circle shadow-sm"
+                                            width="45"
+                                            height="45"
+                                            style="object-fit: cover;"
+                                            alt="Foto Warga">
+
+                                        <div>
+                                            <div class="fw-semibold">{{ $item->nama }}</div>
+                                            <small class="text-muted">NIK: {{ $item->nik }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+
                                 <td>{{ $item->nik }}</td>
                                 <td>{{ $item->alamat }}</td>
-                                <td>{{ $item->jenis_kelamin }}</td>
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        {{ $item->jenis_kelamin }}
+                                    </span>
+                                </td>
                                 <td>{{ \Carbon\Carbon::parse($item->tanggal_lahir)->format('d-m-Y') }}</td>
+
                                 <td class="text-center">
-                                    <a href="{{ route('warga.edit', $item->id) }}" class="btn btn-sm btn-warning me-1">
+                                    <a href="{{ route('warga.edit', $item->id) }}"
+                                        class="btn btn-sm btn-warning me-1">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <form action="{{ route('warga.destroy', $item->id) }}" method="POST" class="d-inline"
+
+                                    <form action="{{ route('warga.destroy', $item->id) }}"
+                                        method="POST" class="d-inline"
                                         onsubmit="return confirm('Yakin ingin menghapus data warga ini?')">
                                         @csrf
                                         @method('DELETE')
@@ -105,8 +133,6 @@
                     </tbody>
                 </table>
             </div>
-
-
 
         </div>
     </div>

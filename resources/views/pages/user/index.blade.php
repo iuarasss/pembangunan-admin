@@ -10,15 +10,12 @@
 
             {{-- Header --}}
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="text-primary mb-0"><i class="fa fa-users me-2"></i>Data User</h5>
+                <h5 class="text-primary mb-0">
+                    <i class="fa fa-users me-2"></i>Data User
+                </h5>
                 <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm">
                     <i class="fa fa-plus me-1"></i>Tambah User
                 </a>
-            </div>
-
-            <!-- PAGINATION RAPIIII -->
-            <div class="d-flex justify-content-end mt-3">
-                {{ $users->appends(request()->query())->links('pagination::bootstrap-5') }}
             </div>
 
             {{-- Search --}}
@@ -53,15 +50,14 @@
                 </div>
             @endif
 
-            {{-- Tabel user --}}
+            {{-- Tabel User --}}
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle">
                     <thead class="table-primary">
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Role</th> {{-- Tambahan --}}
+                            <th>Profil</th>
+                            <th>Role</th>
                             <th width="120" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -69,15 +65,41 @@
                         @forelse ($users as $index => $user)
                             <tr>
                                 <td>{{ $users->firstItem() + $index }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ ucfirst($user->role) }}</td> {{-- Tampilkan role dengan huruf kapital di awal --}}
+
+                                {{-- PROFIL USER --}}
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <img
+                                            src="{{ $user->photo
+                                                ? asset('storage/' . $user->photo)
+                                                : asset('assets-admin/img/default-user.png') }}"
+                                            class="rounded-circle shadow-sm"
+                                            width="45"
+                                            height="45"
+                                            style="object-fit: cover;"
+                                            alt="User Photo">
+
+                                        <div>
+                                            <div class="fw-semibold">{{ $user->name }}</div>
+                                            <small class="text-muted">{{ $user->email }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-info text-dark">
+                                        {{ ucfirst($user->role) }}
+                                    </span>
+                                </td>
+
                                 <td class="text-center">
-                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning me-1">
+                                    <a href="{{ route('user.edit', $user->id) }}"
+                                        class="btn btn-sm btn-warning me-1">
                                         <i class="fa fa-edit"></i>
                                     </a>
 
-                                    <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="d-inline"
+                                    <form action="{{ route('user.destroy', $user->id) }}"
+                                        method="POST" class="d-inline"
                                         onsubmit="return confirm('Yakin ingin menghapus user ini?')">
                                         @csrf
                                         @method('DELETE')
@@ -89,13 +111,19 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center text-muted">Belum ada data user.</td>
+                                <td colspan="4" class="text-center text-muted">
+                                    Belum ada data user.
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
 
+            {{-- Pagination --}}
+            <div class="d-flex justify-content-end mt-3">
+                {{ $users->appends(request()->query())->links('pagination::bootstrap-5') }}
+            </div>
 
         </div>
     </div>

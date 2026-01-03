@@ -1,16 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\WargaController;
+use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\ProyekController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProgresController;
+use App\Http\Controllers\TahapanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KontraktorController;
-use App\Http\Controllers\LokasiController;
-use App\Http\Controllers\MediaController;
-use App\Http\Controllers\ProgresController;
-use App\Http\Controllers\ProyekController;
-use App\Http\Controllers\TahapanController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\WargaController;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages.auth.login-form');
@@ -40,10 +41,6 @@ Route::resource('lokasi', LokasiController::class);
 
 Route::resource('kontraktor', KontraktorController::class);
 
-Route::get('/profile', function () {
-    return view('profile');
-})->name('user.profile');
-
 Route::get('/auth/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/auth/login', [AuthController::class, 'login'])->name('login.process');
 Route::get('/auth/logout', [AuthController::class, 'logout'])->name('logout');
@@ -62,3 +59,8 @@ Route::get('/kontak', function () {
 Route::resource('progres-proyek', ProgresController::class);
 Route::resource('lokasi-proyek', LokasiController::class);
 Route::resource('kontraktor', KontraktorController::class);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});

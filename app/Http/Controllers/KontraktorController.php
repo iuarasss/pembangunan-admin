@@ -43,7 +43,7 @@ class KontraktorController extends Controller
                   ->paginate(10)
                   ->withQueryString();
 
-    return view('pages.admin.kontraktor.index', compact('data'));
+    return view('pages.kontraktor.index', compact('data'));
 
         $validated = $request->validate([
             'id_proyek'         => 'required|exists:proyek,id_proyek',

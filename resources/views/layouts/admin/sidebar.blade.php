@@ -9,31 +9,37 @@
 
 
         <!-- Profil User -->
-        <div class="d-flex align-items-center px-3 mb-3">
+@auth
+<div class="d-flex align-items-center px-3 mb-3">
 
-            @php
-                use Illuminate\Support\Facades\Storage;
+    @php
+        $user = Auth::user();
 
-                $user = Auth::user();
+        $photoUrl = ($user && $user->photo)
+            ? \Illuminate\Support\Facades\Storage::url($user->photo)
+            : asset('assets-admin/img/default-user.png');
+    @endphp
 
-                $photoUrl = $user->photo ? Storage::url($user->photo) : asset('assets-admin/img/default-user.png');
-            @endphp
+    <div class="position-relative">
+        <img src="{{ $photoUrl }}"
+             alt="{{ $user->name ?? 'User' }}"
+             class="rounded-circle shadow-sm"
+             style="width: 70px; height: 70px; object-fit: cover;">
+
+        <span class="bg-success rounded-circle border border-2 border-white position-absolute"
+              style="width: 12px; height: 12px; right: 4px; bottom: 4px;">
+        </span>
+    </div>
+
+    <div class="ms-3">
+        <h6 class="mb-0 fw-semibold">{{ $user->name }}</h6>
+        <small class="text-muted">{{ ucfirst($user->role ?? 'user') }}</small>
+    </div>
+
+</div>
+@endauth
 
 
-            <div class="position-relative">
-                <img src="{{ $photoUrl }}" alt="{{ $user->name }}" class="rounded-circle shadow-sm"
-                    style="width: 70px; height: 70px; object-fit: cover;">
-
-                <span class="bg-success rounded-circle border border-2 border-white position-absolute"
-                    style="width: 12px; height: 12px; right: 4px; bottom: 4px;">
-                </span>
-            </div>
-
-            <div class="ms-3">
-                <h6 class="mb-0 fw-semibold">{{ $user->name }}</h6>
-                <small class="text-muted">{{ ucfirst($user->role) }}</small>
-            </div>
-        </div>
 
         <!-- Menu Navigasi -->
         <div class="navbar-nav w-100">

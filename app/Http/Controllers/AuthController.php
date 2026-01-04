@@ -40,13 +40,13 @@ class AuthController extends Controller
             ->with('error', 'Email atau password salah!');
     }
 
-    public function logout(Request $request)
-    {
-        Auth::logout();                         // Logout user dari guard Laravel
-        $request->session()->invalidate();      // Hapus session
-        $request->session()->regenerateToken(); // Regenerate CSRF token
+   public function logout(Request $request)
+{
+    Auth::logout();
 
-        return redirect()->route('login')->with('success', 'Berhasil logout.');
-    }
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
+    return redirect()->route('login');
+}
 }

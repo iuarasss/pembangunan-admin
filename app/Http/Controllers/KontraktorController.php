@@ -10,9 +10,23 @@ class KontraktorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Kontraktor::orderBy('nama_kontraktor', 'asc')->get();
+        $query = Kontraktor::query();
+
+        // 🔍 SEARCH
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('nama_kontraktor', 'like', '%' . $request->search . '%')
+                    ->orWhere('penanggung_jawab', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $data = $query
+            ->orderBy('kontraktor_id', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
         return view('pages.kontraktor.index', compact('data'));
     }
 

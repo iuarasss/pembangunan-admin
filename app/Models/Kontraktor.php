@@ -9,6 +9,10 @@ class Kontraktor extends Model
     protected $table = 'kontraktor';
     protected $primaryKey = 'kontraktor_id';
 
+    public $incrementing = true;
+    protected $keyType = 'int';
+    public $timestamps = false;
+
     protected $fillable = [
         'id_proyek',
         'nama_kontraktor',
@@ -16,10 +20,6 @@ class Kontraktor extends Model
         'kontak',
         'alamat'
     ];
-
-    public function proyek()
-    {
-        return $this->belongsTo(Proyek::class, 'id_proyek');
-    }
 }
+
 

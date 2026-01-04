@@ -14,34 +14,31 @@
                     <i class="fa fa-plus me-1"></i>Tambah
                 </a>
             </div>
-<form method="GET" class="row g-2 mb-3">
-    <div class="col-md-4">
-        <input type="text"
-            name="search"
-            value="{{ request('search') }}"
-            class="form-control"
-            placeholder="Cari nama proyek...">
-    </div>
+            <form method="GET" class="row g-2 mb-3">
+                <div class="col-md-4">
+                    <input type="text" name="search" value="{{ request('search') }}" class="form-control"
+                        placeholder="Cari nama proyek...">
+                </div>
 
-    <div class="col-md-3">
-        <select name="filter" class="form-select">
-            <option value="">-- Semua Lokasi --</option>
-            <option value="lengkap" {{ request('filter') == 'lengkap' ? 'selected' : '' }}>
-                Lokasi Lengkap
-            </option>
-            <option value="kosong" {{ request('filter') == 'kosong' ? 'selected' : '' }}>
-                Lokasi Kosong
-            </option>
-        </select>
-    </div>
+                <div class="col-md-3">
+                    <select name="filter" class="form-select">
+                        <option value="">-- Semua Lokasi --</option>
+                        <option value="lengkap" {{ request('filter') == 'lengkap' ? 'selected' : '' }}>
+                            Lokasi Lengkap
+                        </option>
+                        <option value="kosong" {{ request('filter') == 'kosong' ? 'selected' : '' }}>
+                            Lokasi Kosong
+                        </option>
+                    </select>
+                </div>
 
 
-    <div class="col-md-2">
-        <button class="btn btn-primary w-100">
-            <i class="fa fa-search me-1"></i>Filter
-        </button>
-    </div>
-</form>
+                <div class="col-md-2">
+                    <button class="btn btn-primary w-100">
+                        <i class="fa fa-search me-1"></i>Filter
+                    </button>
+                </div>
+            </form>
 
             <div class="table-responsive">
                 <table class="table table-bordered table-hover align-middle">
@@ -56,55 +53,57 @@
                     </thead>
                     <tbody>
                         @forelse ($lokasi as $i => $l)
-                           <tr>
-    <td>{{ $i + 1 }}</td>
+                            <tr>
+                                <td>{{ $lokasi->firstItem() + $i }}</td>
 
-    {{-- Nama Lokasi / Proyek --}}
-    <td>{{ $l->proyek->nama_proyek ?? '-' }}</td>
 
-    {{-- Latitude --}}
-    <td class="text-center">
-        {{ $l->lat ?? '-' }}
-    </td>
+                                {{-- Nama Lokasi / Proyek --}}
+                                <td>{{ $l->proyek->nama_proyek ?? '-' }}</td>
 
-    {{-- Longitude --}}
-    <td class="text-center">
-        {{ $l->lng ?? '-' }}
-    </td>
+                                {{-- Latitude --}}
+                                <td class="text-center">
+                                    {{ $l->lat ?? '-' }}
+                                </td>
 
-    {{-- Aksi --}}
-    <td class="text-center">
-        {{-- Tombol Edit --}}
-        <a href="{{ route('lokasi.edit', $l->lokasi_id) }}"
-            class="btn btn-outline-success btn-sm"
-            title="Edit Lokasi">
-            <i class="fa fa-pen"></i>
-        </a>
+                                {{-- Longitude --}}
+                                <td class="text-center">
+                                    {{ $l->lng ?? '-' }}
+                                </td>
 
-        {{-- Tombol Hapus --}}
-        <form action="{{ route('lokasi.destroy', $l->lokasi_id) }}"
-            method="POST"
-            class="d-inline"
-            onsubmit="return confirm('Yakin ingin menghapus lokasi proyek ini?')">
-            @csrf
-            @method('DELETE')
-            <button type="submit"
-                class="btn btn-outline-danger btn-sm"
-                title="Hapus Lokasi">
-                <i class="fa fa-trash"></i>
-            </button>
-        </form>
-    </td>
-</tr>
+                                {{-- Aksi --}}
+                                <td class="text-center">
+                                    {{-- Tombol Edit --}}
+                                    <a href="{{ route('lokasi.edit', $l->lokasi_id) }}"
+                                        class="btn btn-outline-success btn-sm" title="Edit Lokasi">
+                                        <i class="fa fa-pen"></i>
+                                    </a>
+
+                                    {{-- Tombol Hapus --}}
+                                    <form action="{{ route('lokasi.destroy', $l->lokasi_id) }}" method="POST"
+                                        class="d-inline"
+                                        onsubmit="return confirm('Yakin ingin menghapus lokasi proyek ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm" title="Hapus Lokasi">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
 
                         @empty
                             <tr>
-                                <td colspan="3" class="text-center text-muted">Belum ada data lokasi</td>
+                                <td colspan="5" class="text-center text-muted">
+                                    Belum ada data lokasi
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
-
                 </table>
+                <div class="d-flex justify-content-end mt-3">
+                    {{ $lokasi->links('pagination::bootstrap-5') }}
+                </div>
+
             </div>
         </div>
     </div>

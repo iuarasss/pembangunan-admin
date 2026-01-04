@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Kontraktor;
@@ -31,26 +30,26 @@ class KontraktorController extends Controller
      */
     public function store(Request $request)
     {
- $query = Kontraktor::query();
+        $query = Kontraktor::query();
 
-    // 🔍 SEARCH
-    if ($request->filled('search')) {
-        $query->where('nama_kontraktor', 'like', '%' . $request->search . '%')
-              ->orWhere('penanggung_jawab', 'like', '%' . $request->search . '%');
-    }
+        // 🔍 SEARCH
+        if ($request->filled('search')) {
+            $query->where('nama_kontraktor', 'like', '%' . $request->search . '%')
+                ->orWhere('penanggung_jawab', 'like', '%' . $request->search . '%');
+        }
 
-    $data = $query->orderBy('created_at', 'desc')
-                  ->paginate(10)
-                  ->withQueryString();
+        $data = $query->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
 
-    return view('pages.kontraktor.index', compact('data'));
+        return view('pages.kontraktor.index', compact('data'));
 
         $validated = $request->validate([
-            'id_proyek'         => 'required|exists:proyek,id_proyek',
-            'nama_kontraktor'   => 'required|string|max:255',
-            'penanggung_jawab'  => 'required|string|max:255',
-            'kontak'            => 'required|string|max:50',
-            'alamat'            => 'nullable|string',
+            'id_proyek'        => 'required|exists:proyek,id_proyek',
+            'nama_kontraktor'  => 'required|string|max:255',
+            'penanggung_jawab' => 'required|string|max:255',
+            'kontak'           => 'required|string|max:50',
+            'alamat'           => 'nullable|string',
         ]);
 
         Kontraktor::create($validated);
@@ -86,11 +85,11 @@ class KontraktorController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'id_proyek'         => 'required|exists:proyek,id_proyek',
-            'nama_kontraktor'   => 'required|string|max:255',
-            'penanggung_jawab'  => 'required|string|max:255',
-            'kontak'            => 'required|string|max:50',
-            'alamat'            => 'nullable|string',
+            'id_proyek'        => 'required|exists:proyek,id_proyek',
+            'nama_kontraktor'  => 'required|string|max:255',
+            'penanggung_jawab' => 'required|string|max:255',
+            'kontak'           => 'required|string|max:50',
+            'alamat'           => 'nullable|string',
         ]);
 
         $kontraktor = Kontraktor::findOrFail($id);
